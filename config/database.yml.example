@@ -1,0 +1,17 @@
+default: &default
+  adapter: postgresql
+  encoding: unicode
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+
+development:
+  <<: *default
+  database: funbox-test_development
+test:
+  <<: *default
+  database: funbox-test_test
+
+production:
+  <<: *default
+  database: funbox-test_production
+  username: funbox-test
+  password: <%= ENV['FUNBOX-TEST_DATABASE_PASSWORD'] %>

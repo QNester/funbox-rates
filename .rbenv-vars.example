@@ -1,0 +1,4 @@
+DB_HOST=required
+DB_PORT=required
+DB_USER=required
+DB_PWD=required
