@@ -1,3 +1,8 @@
 Rails.application.routes.draw do
-  # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
+  resources :currency_rates, only: [:create]
+
+  root to: 'currency_rates#index'
+  get '/admin', to: 'currency_rates#new'
+
+  post '/currency_rates/updates', to: 'currency_rates#get_updates'
 end

@@ -1,0 +1,9 @@
+= form_for @currency_course do |f|
+  - if @currency_course.errors.any?
+    #error_explanation
+      h2 = "#{pluralize(@currency_course.errors.count, "error")} prohibited this currency_course from being saved:"
+      ul
+        - @currency_course.errors.full_messages.each do |message|
+          li = message
+
+  .actions = f.submit

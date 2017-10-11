@@ -1,0 +1,2 @@
+# Procfile
+rails: rails s

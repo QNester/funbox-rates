@@ -10,17 +10,19 @@ gem 'rails', '~> 5.1.3'
 gem 'pg', '~> 0.18'
 gem 'puma', '~> 3.7'
 gem 'uglifier', '>= 1.3.0'
+gem 'foreman'
+gem 'oj'
 
 # -- Frontend -- #
 gem 'sass-rails', '~> 5.0'
 gem 'coffee-rails', '~> 4.2'
 gem 'turbolinks', '~> 5'
 gem 'jbuilder', '~> 2.5'
-gem 'slim'
+gem 'slim-rails'
 
 # -- Dev & Test -- #
 group :development, :test do
-  gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
+  gem 'pry'
   gem 'rspec-rails'
   gem 'ffaker'
   gem 'factory_girl_rails'
@@ -30,6 +32,7 @@ end
 
 # -- Dev -- #
 group :development do
+  gem 'rubocop'
   gem 'web-console', '>= 3.3.0'
   gem 'listen', '>= 3.0.5', '< 3.2'
   gem 'spring'
