@@ -1,9 +1,19 @@
-= form_for @currency_course do |f|
-  - if @currency_course.errors.any?
+= form_for @currency_rate do |f|
+  - if @currency_rate.errors.any?
     #error_explanation
-      h2 = "#{pluralize(@currency_course.errors.count, "error")} prohibited this currency_course from being saved:"
+      h2 = "#{pluralize(@currency_rate.errors.count, "error")} prohibited this currency_rate from being saved:"
       ul
-        - @currency_course.errors.full_messages.each do |message|
+        - @currency_rate.errors.full_messages.each do |message|
           li = message
 
-  .actions = f.submit
+
+  .form-group.text-center
+    = f.label :rate
+    = f.number_field(:rate, step: 0.01, class: 'form-control',
+            data: { toggle: 'tooltip' }, title: "Format xx.xx only. Example: 30.33")
+  .form-group.text-center
+    = f.label :force_until
+    .date-select-fields
+      = f.date_select :force_until
+  .text-center
+    button.btn.btn-default Create rate

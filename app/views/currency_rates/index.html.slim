@@ -1,1 +1,4 @@
-.actions= @usd_rate
+.text-center
+  h1 Current rate USD
+  span#current-rate= "#{@usd_rate}₽"
+  p= link_to 'Set custom rate', '/admin'

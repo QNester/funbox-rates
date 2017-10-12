@@ -44,7 +44,7 @@ class CurrencyRate < ApplicationRecord
   end
 
   def self.current_force_rate
-    rates = where('is_force = true AND force_until <= ?', Time.now).order(force_until: :asc)
+    rates = where('is_force = true AND force_until >= ?', Time.now).order(force_until: :asc)
     rates.first
   end
 

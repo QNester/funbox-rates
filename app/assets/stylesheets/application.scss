@@ -1,0 +1,31 @@
+@import "currency_courses";
+@import "bootstrap-sprockets";
+@import "bootstrap";
+
+
+.vertical-center {
+  min-height: 90%;  /* Fallback for browsers do NOT support vh unit */
+  min-height: 90vh; /* These two lines are counted as one :-)       */
+  display: flex;
+  align-items: center;
+}
+
+.date-select-fields {
+  width: 100%;
+}
+
+select {
+  width: 200px;
+  height: 30px;
+  border: 1px solid #cccccc;
+  background-color: #ffffff;
+  .date-select {
+    width:auto;
+    border: 1px solid #cccccc;
+    background-color: #ffffff;
+  }
+}
+
+#current-rate {
+  font-size: 50px;
+}
