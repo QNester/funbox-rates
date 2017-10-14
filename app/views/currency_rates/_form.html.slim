@@ -8,14 +8,14 @@
 
   .form-group.text-center
     = f.label :rate
-    = f.number_field(:rate, step: 0.01, class: 'form-control', value: @last_rate&.rate,
+    = f.number_field(:rate, step: 0.01, class: 'form-control', value: @currency_rate.rate || @last_rate&.rate,
             data: { toggle: 'tooltip' }, title: 'Format xx.xx only. Example: 30.33',
             required: true)
 
   .form-group.text-center
     = f.label :force_until
     .date-select-fields
-      = f.datetime_select :force_until, value: @last_rate&.force_until, required: true
+      = f.datetime_select :force_until, default: @currency_rate.rate || @last_rate&.force_until, required: true
 
   .text-center
     button.btn.btn-default Create rate
