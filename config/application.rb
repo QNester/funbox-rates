@@ -11,5 +11,6 @@ module FunboxTest
     config.load_defaults 5.1
 
     config.active_job.queue_adapter = :sidekiq
+    config.time_zone = 'Moscow'
   end
 end

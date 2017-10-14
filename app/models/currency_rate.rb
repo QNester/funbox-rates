@@ -57,6 +57,10 @@ class CurrencyRate < ApplicationRecord
 
   # -- Instance methods -- #
 
+  def formated_rate
+    sprintf '%.2f',  rate
+  end
+
   def force?
     is_force
   end

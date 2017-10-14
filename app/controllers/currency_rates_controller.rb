@@ -4,7 +4,7 @@ class CurrencyRatesController < ApplicationController
   def index
     rate = CurrencyRate.current_force_rate ||
                 actual_rate_service.update_currency_rate
-    @usd_rate = rate.rate
+    @usd_rate = rate.formated_rate
 
     respond_to do |format|
       format.html
@@ -14,20 +14,20 @@ class CurrencyRatesController < ApplicationController
 
   def new
     @currency_rate = CurrencyRate.new
+    @last_rate = CurrencyRate.where(is_force: true).last
   end
 
   # POST /currency_rates
   # POST /currency_rates.json
   def create
-    @currency_rate = CurrencyRate.new(currency_rate_params)
-    @currency_rate.is_force = true
+    @currency_rate = RateSaver.new(CurrencyRate.new(currency_rate_params))
+
     respond_to do |format|
       if @currency_rate.save
-        RemoveExpiredRateJob.set(wait_until: @currency_rate.force_until).perform_later(@currency_rate.id)
-        ActionCable.server.broadcast 'actual_rate', rate: CurrencyRate.current_rate.rate, from: 'Create force rate'
         format.html { redirect_to '/', notice: 'Currency rate was successfully created.' }
         format.json { render :show, status: :created, location: @currency_rate }
       else
+        @currency_rate = @currency_rate.object
         format.html { render :new }
         format.json { render json: @currency_rate.errors, status: :unprocessable_entity }
       end
