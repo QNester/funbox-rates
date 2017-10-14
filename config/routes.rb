@@ -5,4 +5,7 @@ Rails.application.routes.draw do
   get '/admin', to: 'currency_rates#new'
 
   put '/currency_rates/updates', to: 'currency_rates#get_updates'
+
+  require 'sidekiq/web'
+  mount Sidekiq::Web => '/sidekiq'
 end

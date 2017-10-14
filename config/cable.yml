@@ -1,10 +1,15 @@
-development:
-  adapter: async
-
-test:
-  adapter: async
-
+# Action Cable uses Redis by default to administer connections, channels, and sending/receiving messages over the WebSocket.
 production:
   adapter: redis
   url: redis://localhost:6379/1
-  channel_prefix: funbox-test_production
+
+local: &local
+  url: redis://localhost:6379
+  host: localhost
+  port: 6379
+  timout: 1
+  inline: true
+
+development: *local
+
+test: *local

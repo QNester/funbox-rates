@@ -18,7 +18,7 @@ ActiveRecord::Schema.define(version: 20171010173336) do
   create_table "currency_rates", force: :cascade do |t|
     t.float "rate", null: false, comment: "USD to RUB rate"
     t.boolean "is_force", default: false, comment: "Force = true if admin create it"
-    t.date "force_until", comment: "Expire date of forced rate"
+    t.datetime "force_until", comment: "Expire date time of forced rate"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

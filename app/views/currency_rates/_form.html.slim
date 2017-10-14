@@ -10,10 +10,10 @@
   .form-group.text-center
     = f.label :rate
     = f.number_field(:rate, step: 0.01, class: 'form-control',
-            data: { toggle: 'tooltip' }, title: "Format xx.xx only. Example: 30.33")
+            data: { toggle: 'tooltip' }, title: 'Format xx.xx only. Example: 30.33')
   .form-group.text-center
     = f.label :force_until
     .date-select-fields
-      = f.date_select :force_until
+      = f.datetime_select :force_until
   .text-center
     button.btn.btn-default Create rate

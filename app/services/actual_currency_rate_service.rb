@@ -20,20 +20,26 @@ class ActualCurrencyRateService
       retrying_num += 1
       logger.info("JSON was not download, retry #{retrying_num}")
       if retrying_num >= MAX_RETRYING_OPEN
-        return {'rate': { 'Rate': CurrencyRate.current_online_rate } }
+        return { 'rate' => { 'Rate' => CurrencyRate.current_online_rate.rate } }
       end
       retry
     end
   end
 
   # Update current rate with is_force == false
+  # If current_rate nil create rate with default params
+  # This method push rate to websockets.
   #
-  # @return [Float] - actual USD to RUB rate
+  # @return [CurrencyRate] - actual USD to RUB rate
   def update_currency_rate
+    current_rate = CurrencyRate.current_rate ||
+        CurrencyRate.create(rate: 57.00, is_force: false)
+    return if current_rate.force?
     rate_info = actual_rate
     rate = rate_info['rate']['Rate']
-    CurrencyRate.current_online_rate.update(rate: rate)
-    rate.to_f.round(2)
+    current_rate.update!(rate: rate.to_f)
+    ActionCable.server.broadcast 'actual_rate', rate: current_rate.rate, from: 'Update currency in service'
+    current_rate
   end
 
   private

@@ -2,8 +2,10 @@ class CurrencyRatesController < ApplicationController
   # GET /currency_rates
   # GET /currency_rates.json
   def index
-    @usd_rate = CurrencyRate.current_force_rate.rate ||
+    rate = CurrencyRate.current_force_rate ||
                 actual_rate_service.update_currency_rate
+    @usd_rate = rate.rate
+
     respond_to do |format|
       format.html
       format.json { render json: { rate: @usd_rate } }
@@ -21,6 +23,8 @@ class CurrencyRatesController < ApplicationController
     @currency_rate.is_force = true
     respond_to do |format|
       if @currency_rate.save
+        RemoveExpiredRateJob.set(wait_until: @currency_rate.force_until).perform_later(@currency_rate.id)
+        ActionCable.server.broadcast 'actual_rate', rate: CurrencyRate.current_rate.rate, from: 'Create force rate'
         format.html { redirect_to '/', notice: 'Currency rate was successfully created.' }
         format.json { render :show, status: :created, location: @currency_rate }
       else
@@ -28,12 +32,6 @@ class CurrencyRatesController < ApplicationController
         format.json { render json: @currency_rate.errors, status: :unprocessable_entity }
       end
     end
-  end
-
-  # GET /currency_rates/updates
-  def get_updates
-    rate = actual_rate_service.update_currency_rate
-    render json: { rate: rate }
   end
 
   private

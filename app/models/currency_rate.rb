@@ -11,8 +11,11 @@ class CurrencyRate < ApplicationRecord
 
   # Invalid if trying create more then one unforce rate
   def only_one_unforce_rate_exist
-    if !is_force && self.class.current_online_rate.present?
-      errors.add(:rate, :invalid, message: 'You cant add not force rate anymore')
+    current = self.class.current_online_rate
+    if !is_force && current.present?
+      if id != current.id
+        errors.add(:rate, :invalid, message: 'You cant add not force rate anymore')
+      end
     end
   end
 
@@ -40,7 +43,7 @@ class CurrencyRate < ApplicationRecord
   # -- Class methods -- #
 
   def self.current_online_rate
-    where(is_force: false)
+    find_by(is_force: false)
   end
 
   def self.current_force_rate
