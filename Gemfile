@@ -29,10 +29,13 @@ gem 'slim-rails'
 group :development, :test do
   gem 'pry'
   gem 'rspec-rails'
+  gem 'rspec-collection_matchers'
   gem 'ffaker'
   gem 'factory_girl_rails'
   gem 'capybara', '~> 2.13'
   gem 'selenium-webdriver'
+  gem 'shoulda'
+  gem 'database_cleaner'
 end
 
 # -- Dev -- #

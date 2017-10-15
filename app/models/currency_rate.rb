@@ -1,8 +1,8 @@
 class CurrencyRate < ApplicationRecord
   validates :rate, presence: true
-  validates :is_force, inclusion: {in: [true, false]}
 
   validate :only_one_unforce_rate_exist
+  validate :only_one_force_rate_exist
   validate :force_until_must_exist_for_force
   validate :force_until_is_valid_date
 
@@ -14,7 +14,19 @@ class CurrencyRate < ApplicationRecord
     current = self.class.current_online_rate
     if !is_force && current.present?
       if id != current.id
-        errors.add(:rate, :invalid, message: 'You cant add not force rate anymore')
+        err_msg = 'You cant add not force rate anymore'
+        errors.add(:is_force, :invalid, message: err_msg)
+      end
+    end
+  end
+
+  # Invalid if trying create more then one force rate
+  def only_one_force_rate_exist
+    current = self.class.current_force_rate
+    if is_force && current.present?
+      if id != current.id
+        err_msg = 'You cant add more then one custom rate'
+        errors.add(:is_force, :invalid, message: err_msg)
       end
     end
   end
@@ -22,21 +34,18 @@ class CurrencyRate < ApplicationRecord
   # Invalid if `force_until` < Time.now and force_until less then
   # any exists force rate
   def force_until_is_valid_date
-    if is_force?
-      date_cond = CurrencyRate.where('force_until >= ?', force_until).any? ||
-                  force_until < Time.now
-      if date_cond
-        err_msg = 'Your rate expire date must be more then exists' \
-                  'rate and more then today'
-        errors.add(:force_until, :invalid,  message: err_msg)
-      end
+    return unless force_until
+    if is_force && force_until < Time.now
+      err_msg = 'Expire date can not be less then current time'
+      errors.add(:force_until, :invalid,  message: err_msg)
     end
   end
 
   # Invalid when `force_until` not exist with force: true
   def force_until_must_exist_for_force
-    if !force_until && is_force
-      errors.add(:is_false, :invalid, message: 'You must input expire date')
+    if is_force && !force_until
+      err_msg = 'You must input expire date'
+      errors.add(:force_until, :invalid, message: err_msg)
     end
   end
 
@@ -47,8 +56,7 @@ class CurrencyRate < ApplicationRecord
   end
 
   def self.current_force_rate
-    rates = where('is_force = true AND force_until >= ?', Time.now).order(force_until: :asc)
-    rates.first
+    find_by(is_force: true)
   end
 
   def self.current_rate
