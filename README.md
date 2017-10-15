@@ -1,24 +1,54 @@
-# README
+# Funbox - текущий курс доллара
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## Зависимости 
 
-Things you may want to cover:
+Для корректной работы необходимо:
+ * Ruby 2.4.1 и bundler
+ * PostgreSQL
+ * Redis
+ 
+## Установка
 
-* Ruby version
+1. Необходимо склонировать проект:
 
-* System dependencies
+    ```
+    git clone git@github.com:QNester/funbox-rates.git
+    cd funbox-rates
+    bundle install
+    ```
 
-* Configuration
+2. Необходимо создать необходимые файлы: `config/database.yml`, `config/secrets.yml`, `.env`. Все файлы можно создать
+по их examples: `config/database.yml.example`, `config/secrets.yml.example`, `.env.example`. Файлы необходимо 
+заполнить актуальными данными для вашего окружения.
 
-* Database creation
+3. Для обновлений курса необходимо запустить:
+    ```
+    whenever --update-crontab
+    ```
 
-* Database initialization
+4. Убедившись, что Redis и PostgreSQL запущены и работают, а конфигурации настроены правильно,
+небходимо запустить следующие команды:
+    ```
+        rails db:migrate
+        rails db:seed
+        foreman start
+    ``` 
 
-* How to run the test suite
+5. Зайти на `http://localhost:3000`
 
-* Services (job queues, cache servers, search engines, etc.)
+## Запуск в Docker
+Так же, вы можете запустить приложение в Docker. Для этого вам необходимо:
 
-* Deployment instructions
+1. Установить `docker` и `docker-compose`
 
-* ...
+2. Запустить приложений командой `docker-compose up --build`
+
+3. Зайти на `http://localhost:3000`
+
+ВНИМАНИЕ запуск тестов и whenever необходимо запускать НЕ в docker.
+
+## Тесты
+
+Для запуска тестов запустите:
+
+`bundle exec rspec`
