@@ -1,13 +1,15 @@
 class RateSaver
   attr_reader :object
 
-  def initialize(rate)
-    @object = rate
+  def initialize(rate_params)
+    @params = rate_params
+    @object = CurrencyRate.current_force_rate || CurrencyRate.new(rate_params)
     @object.is_force = true
   end
 
   def save
-    @object.save && create_job_and_broadcast
+    return @object.save && create_job_and_broadcast if @object.new_record?
+    @object.update(@params) && create_job_and_broadcast
   end
 
   private

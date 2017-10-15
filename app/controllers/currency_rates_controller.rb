@@ -20,7 +20,7 @@ class CurrencyRatesController < ApplicationController
   # POST /currency_rates
   # POST /currency_rates.json
   def create
-    @currency_rate = RateSaver.new(CurrencyRate.new(currency_rate_params))
+    @currency_rate = RateSaver.new(currency_rate_params)
     respond_to do |format|
       if @currency_rate.save
         format.html { redirect_to '/', notice: 'Currency rate was successfully created.' }

@@ -15,7 +15,7 @@
   .form-group.text-center
     = f.label :force_until
     .date-select-fields
-      = f.datetime_select :force_until, default: @currency_rate.rate || @last_rate&.force_until, required: true
+      = f.datetime_select :force_until, default: @currency_rate.force_until || @last_rate&.force_until, required: true
 
   .text-center
     button.btn.btn-default Create rate

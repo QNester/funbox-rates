@@ -56,7 +56,7 @@ class CurrencyRate < ApplicationRecord
   end
 
   def self.current_force_rate
-    find_by(is_force: true)
+    find_by('is_force = ? AND force_until >= ?', true, Time.now)
   end
 
   def self.current_rate
