@@ -17,7 +17,7 @@
     bundle install
     ```
 
-2. Необходимо создать необходимые файлы: `config/database.yml`, `config/secrets.yml`, `.env`. Все файлы можно создать
+2. Необходимо создать файлы: `config/database.yml`, `config/secrets.yml`, `.env`. Все файлы можно создать
 по их examples: `config/database.yml.example`, `config/secrets.yml.example`, `.env.example`. Файлы необходимо 
 заполнить актуальными данными для вашего окружения.
 
