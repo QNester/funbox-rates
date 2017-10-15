@@ -16,7 +16,11 @@ class RateSaver
 
   def create_job_and_broadcast
     PushActualRateJob.set(wait_until: @object.force_until).perform_later(@object.id)
-    ActionCable.server.broadcast 'actual_rate', rate: CurrencyRate.current_rate.formated_rate, from: 'Create force rate'
+    ActionCable.server.broadcast(
+        'actual_rate',
+        rate: CurrencyRate.current_rate.formated_rate,
+        from: 'Create force rate'
+    )
     true
   end
 end
