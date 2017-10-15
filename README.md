@@ -28,10 +28,10 @@
 
 4. Убедившись, что Redis и PostgreSQL запущены и работают, а конфигурации настроены правильно,
 небходимо запустить следующие команды:
-    ```
-        rails db:migrate
-        rails db:seed
-        foreman start
+    ```   
+     rails db:migrate
+     rails db:seed
+     foreman start
     ``` 
 
 5. Зайти на `http://localhost:3000`
