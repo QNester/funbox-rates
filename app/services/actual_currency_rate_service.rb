@@ -5,6 +5,7 @@ class ActualCurrencyRateService
       'where+pair+=+%22USDRUB%22&format=json&env=store%3A%2F%2Fdatatables.org' \
       '%2Falltableswithkeys&callback='.freeze
   MAX_RETRYING_OPEN = 5
+  TIMEOUT_SEC = 10
 
   # Get current USD to RUB rate from yahoo API
   #
@@ -13,7 +14,7 @@ class ActualCurrencyRateService
     retrying_num = 0
     begin
       logger.info('Try to get rate JSON')
-      json = JSON.parse(open(URL_FOR_UPDATE).read)
+      json = JSON.parse(open(URL_FOR_UPDATE, read_timeout: TIMEOUT_SEC).read)
       logger.info('JSON was get successful')
       json['query']['results']
     rescue StandardError

@@ -30,6 +30,7 @@ group :development, :test do
   gem 'pry'
   gem 'rspec-rails'
   gem 'rspec-collection_matchers'
+  gem 'rails-controller-testing'
   gem 'ffaker'
   gem 'factory_girl_rails'
   gem 'capybara', '~> 2.13'

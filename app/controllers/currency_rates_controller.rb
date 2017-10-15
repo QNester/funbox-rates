@@ -8,13 +8,17 @@ class CurrencyRatesController < ApplicationController
 
     respond_to do |format|
       format.html
-      format.json { render json: { rate: @usd_rate } }
+      format.json
     end
   end
 
   def new
     @currency_rate = CurrencyRate.new
     @last_rate = CurrencyRate.where(is_force: true).last
+    respond_to do |format|
+      format.html
+      format.json
+    end
   end
 
   # POST /currency_rates
@@ -24,7 +28,8 @@ class CurrencyRatesController < ApplicationController
     respond_to do |format|
       if @currency_rate.save
         format.html { redirect_to '/', notice: 'Currency rate was successfully created.' }
-        format.json { render :show, status: :created, location: @currency_rate }
+        @usd_rate = @currency_rate.object.formated_rate
+        format.json { render :index }
       else
         @currency_rate = @currency_rate.object
         format.html { render :new }
