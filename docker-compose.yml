@@ -1,6 +1,5 @@
 version: '3'
 services:
-
   app:
     build: .
     container_name: funbox-app
@@ -15,7 +14,7 @@ services:
     depends_on:
       - redis
       - db
-    command: bundle exec rails s
+    command: bundle exec foreman start
 
   db:
     image: postgres

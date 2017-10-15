@@ -14,6 +14,7 @@ gem 'foreman'
 gem 'redis'
 gem 'whenever'
 gem 'sidekiq'
+gem 'dotenv'
 
 # -- Frontend -- #
 gem 'jquery-rails'

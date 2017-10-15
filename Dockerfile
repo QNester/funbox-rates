@@ -12,3 +12,7 @@ RUN bundle install
 COPY . $APP_PATH
 
 COPY ./config/database.yml.example ./config/database.yml
+COPY ./config/secrets.yml.example ./config/secrets.yml
+COPY .env.example .env
+
+#RUN whenever --update-crontab

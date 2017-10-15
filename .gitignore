@@ -16,10 +16,11 @@
 
 config/database.yml
 config/secrets.yml
-.rbenv-vars
 
 .idea/public/packs
 /public/packs-test
 /node_modules
 
 .idea
+
+.env

@@ -271,6 +271,7 @@ DEPENDENCIES
   capybara (~> 2.13)
   coffee-rails (~> 4.2)
   database_cleaner
+  dotenv
   factory_girl_rails
   ffaker
   foreman
