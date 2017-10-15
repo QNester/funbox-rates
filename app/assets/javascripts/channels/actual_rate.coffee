@@ -8,5 +8,5 @@ $(document).ready ->
         # Called when the subscription has been terminated by the server
 
       received: (data) ->
-        console.log("Notified about new rate: " + data["rate"] + ", from: " + data["from"])
+        console.log("Notified about new rate: " + data["rate"] + ", from: " + data["from"] + ". Time: " + new Date)
         $('#current-rate').text(data["rate"] + "₽")
