@@ -2,7 +2,6 @@ require 'rails_helper'
 RSpec.describe CurrencyRatesController, type: :controller do
 
   before(:all) do
-    create(:currency_rate)
     ActiveJob::Base.queue_adapter = :test
   end
 
@@ -43,7 +42,7 @@ RSpec.describe CurrencyRatesController, type: :controller do
         CurrencyRate.create!(valid_attributes)
         expect {
           post :create, params: { currency_rate: valid_attributes }
-        }.to_not change(CurrencyRate, :count).from(2) # 2 coz force and not force records
+        }.to_not change(CurrencyRate, :count)
       end
 
       it 'redirects to the created currency_rate' do

@@ -16,4 +16,12 @@ RSpec.configure do |config|
   config.filter_rails_from_backtrace!
   
   config.include FactoryGirl::Syntax::Methods
+  config.include Capybara::DSL
 end
+
+Capybara.server = :puma
+
+Capybara.register_driver :selenium_chrome do |app|
+  Capybara::Selenium::Driver.new(app, browser: :chrome)
+end
+Capybara.javascript_driver = :selenium_chrome

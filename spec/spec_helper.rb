@@ -1,4 +1,5 @@
 require 'factory_girl_rails'
+require 'capybara'
 
 RSpec.configure do |config|
   config.expect_with :rspec do |expectations|
