@@ -17,6 +17,10 @@ RSpec.configure do |config|
   
   config.include FactoryGirl::Syntax::Methods
   config.include Capybara::DSL
+
+  config.before(:all) do
+    ActiveJob::Base.queue_adapter = :test
+  end
 end
 
 Capybara.server = :puma
