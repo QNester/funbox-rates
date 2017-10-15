@@ -2,15 +2,31 @@ sudo: false
 language: ruby
 rvm:
   - 2.4.1
+
+addons:
+  apt:
+    sources:
+       - google-chrome
+    packages:
+      - google-chrome-stable
+
 before_install:
+  - sudo apt-get update
+  - sudo apt-get install chromium-chromedriver
+  - gem install bundler -v 1.15.4
+
+before_script:
+  - export PATH=$PATH:/usr/lib/chromium-browser/
+  - export DISPLAY=:99.0
+  - sh -e /etc/init.d/xvfb start
+  - sleep 3
   - psql -c 'create database travis_ci_test;' -U postgres
   - cp config/database.yml.travis config/database.yml
   - cp config/secrets.yml.travis config/secrets.yml
-  - gem install bundler -v 1.15.4
-  - bundle install
   - bin/rails db:migrate RAILS_ENV=test
 
 services:
   - postgresql
+  - redis
 
 script: bundle exec rspec

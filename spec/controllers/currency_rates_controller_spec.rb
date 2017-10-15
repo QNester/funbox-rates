@@ -1,10 +1,5 @@
 require 'rails_helper'
 RSpec.describe CurrencyRatesController, type: :controller do
-
-  before(:all) do
-    ActiveJob::Base.queue_adapter = :test
-  end
-
   let(:valid_attributes) {
     { rate: 60, force_until: Time.now + 1.days, is_force: true }
   }
