@@ -59,6 +59,8 @@ class CurrencyRate < ApplicationRecord
     find_by('is_force = ? AND force_until >= ?', true, Time.now)
   end
 
+  # Return force rate if it exist and not expired
+  # Else return online rate
   def self.current_rate
     current_force_rate || current_online_rate
   end

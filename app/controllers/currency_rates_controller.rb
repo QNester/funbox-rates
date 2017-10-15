@@ -12,6 +12,8 @@ class CurrencyRatesController < ApplicationController
     end
   end
 
+  # GET /admin
+  # GET /admin.json
   def new
     @currency_rate = CurrencyRate.new
     @last_rate = CurrencyRate.where(is_force: true).last
@@ -40,7 +42,6 @@ class CurrencyRatesController < ApplicationController
 
   private
 
-  # Never trust parameters from the scary internet, only allow the white list through.
   def currency_rate_params
     params.fetch(:currency_rate, {}).permit(:rate, :force_until)
   end
