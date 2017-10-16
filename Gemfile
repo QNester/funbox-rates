@@ -37,6 +37,7 @@ group :development, :test do
   gem 'selenium-webdriver'
   gem 'shoulda'
   gem 'database_cleaner'
+  gem 'webmock'
 end
 
 # -- Dev -- #

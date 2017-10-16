@@ -1,5 +1,6 @@
 require 'factory_girl_rails'
 require 'capybara'
+require 'webmock/rspec'
 
 RSpec.configure do |config|
   config.expect_with :rspec do |expectations|
