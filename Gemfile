@@ -12,7 +12,6 @@ gem 'puma', '~> 3.7'
 gem 'uglifier', '>= 1.3.0'
 gem 'foreman'
 gem 'redis'
-gem 'whenever'
 gem 'sidekiq'
 gem 'dotenv'
 

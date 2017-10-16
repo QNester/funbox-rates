@@ -6,7 +6,7 @@ RSpec.feature 'Show rate in main pages', type: :feature do
       visit('/')
       text = page.first('#current-rate').text
       expect(text).to include('₽')
-      expect(text.length).to eq(6)
+      expect(text.length).to be >= 4
     end
 
     it 'link go to admin', js: true do
