@@ -11,7 +11,7 @@ $(document).ready ->
         $.getJSON('/rate.json', (data) ->
           $('#current-rate').text(data["rate"] + "₽")
         )
-      , 2000
+      , 6000
     else
       if window.Interval
         window.clearInterval(window.Interval)
